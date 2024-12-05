@@ -1,5 +1,7 @@
 'use client';
+import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import { BsGithub } from 'react-icons/bs';
 
 export default function Home() {
   const [input, setInput] = useState('');
@@ -8,7 +10,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to the latest message when messages are updated
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -20,7 +21,6 @@ export default function Home() {
     setError(null); // Reset error message
     if (!input.trim()) return;
 
-    // Add user message to chat
     setMessages((prevMessages) => [...prevMessages, { type: 'user', text: input }]);
     setInput('');
     setLoading(true);
@@ -59,15 +59,18 @@ export default function Home() {
     <div className="flex flex-col h-screen mx-auto bg-white rounded-lg shadow-lg border border-gray-300 ">
 
       <header className="p-4 bg-blue-600 text-white rounded-t-lg flex items-center justify-center shadow-md">
-      <h1 className="text-4xl font-extrabold text-green-400 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg">
-  <span className="text-gray-800">{"<"}</span> TusharBot <span className="text-gray-800">{" />"}</span>
+      <h1 className="text-4xl flex  font-extrabold text-green-400 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg">
+  <span className="text-gray-800">{"<"}</span> TusharBot <span className="text-gray-800">{" />"}</span>  
+  <Link className=' pl-4' href='https://github.com/tushar-agarwal7' >
+  <BsGithub/>
+  </Link>
 </h1>
       </header>
 
       {/* Chat Messages */}
       <div className="flex-1 p-4 overflow-y-auto space-y-4" ref={chatContainerRef}>
       <p className="max-w-[80%] p-4 rounded-xl text-base mb-4 shadow-md bg-gray-100 text-gray-800 self-start animate-slideInLeft">
-  Welcome! How can I assist you today? Feel free to ask any questions or provide details, and I’ll be happy to help.
+  Welcome! How can I assist you today? Feel free to ask any questions to tushar or provide details, and I’ll be happy to help.
 </p>
         {messages.map((message, index) => (
           <div
